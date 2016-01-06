@@ -1,6 +1,7 @@
 package capstone.gameobject.staticObjects;
 
 import capstone.DeltaTimeHelper;
+import capstone.ScoringHelper;
 import capstone.gameobject.dynamicObjects.PlayerGameObject;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -33,6 +34,7 @@ public class StaticTrapGameObject extends StaticGameObject {
         //todo deduct score
         if (d.getDeltaTime() > 1000) {
             p.modifyLives(-1);
+            p.modifyScore(-ScoringHelper.getFormula() / 5);
             d.reset();
         }
     }

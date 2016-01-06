@@ -30,9 +30,9 @@ public class LegendView extends StaticView {
         super(s, width, height);
         explainedGameObjects = new ArrayList<>(Arrays.asList(
                 new HealthGameObject(),
-                new KeyGameObject(0),
+                new KeyGameObject(),
                 new MovingTrapGameObject(0, 0, null),
-                new PlayerGameObject(0, 0, 0, null, 0, false),
+                new PlayerGameObject(0, 0, 0, null, false),
                 new EntranceGameObject(),
                 new ExitGameObject(),
                 new StaticTrapGameObject(),

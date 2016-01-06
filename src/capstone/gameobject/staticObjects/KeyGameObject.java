@@ -1,27 +1,22 @@
 package capstone.gameobject.staticObjects;
 
-import capstone.DeltaTimeHelper;
+import capstone.ScoringHelper;
 import capstone.gameobject.dynamicObjects.PlayerGameObject;
 import com.googlecode.lanterna.terminal.Terminal;
 
 public class KeyGameObject extends StaticGameObject {
     private boolean taken = false;
-    private int scoreAddition;
-    private DeltaTimeHelper deltaTimeHelper;
 
     /**
      * Constructs a new key game object at the given coordinates in the given level.
      *
-     * @param scoreAddition //todo
      */
-    public KeyGameObject(int scoreAddition) {
+    public KeyGameObject() {
 
         this.representation = 'k'; //it's a key.
         this.entityName = "Key for Doors";
         this.foregroundColor = Terminal.Color.YELLOW;
         this.backgroundColor = Terminal.Color.BLACK;
-        this.scoreAddition = scoreAddition;
-        this.deltaTimeHelper = new DeltaTimeHelper();
         this.computerWalkable = false;
         this.playerWalkable = true;
         this.pickup = true;
@@ -37,7 +32,7 @@ public class KeyGameObject extends StaticGameObject {
     public void modifyPlayer(PlayerGameObject p) {
         if (!taken) {
             p.takeKey();
-            p.modifyScore(scoreAddition);
+            p.modifyScore(ScoringHelper.getFormula() / 2);
             taken = true;
             this.representation = ' ';
             this.backgroundColor = Terminal.Color.DEFAULT;

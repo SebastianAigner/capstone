@@ -1,6 +1,7 @@
 package capstone.gameobject.dynamicObjects;
 
 import capstone.DeltaTimeHelper;
+import capstone.ScoringHelper;
 import capstone.level.Level;
 import capstone.level.LevelHelper;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -46,7 +47,7 @@ public class BulletGameObject extends DynamicGameObject {
     @Override
     public void modifyPlayer(PlayerGameObject p) {
         if (hasHitEnemy && !hasAddedPlayerScore) {
-            p.modifyScore(5000); //todo dynamic scale
+            p.modifyScore(ScoringHelper.getFormula() / 4);
             hasAddedPlayerScore = true;
         }
     }

@@ -1,5 +1,6 @@
 package capstone.level;
 
+import capstone.ScoringHelper;
 import capstone.gameobject.dynamicObjects.DynamicGameObject;
 import capstone.gameobject.dynamicObjects.MovingTrapGameObject;
 import capstone.gameobject.dynamicObjects.PlayerGameObject;
@@ -31,11 +32,9 @@ public class LevelInputOutput {
         FileInputStream fileInputStream = new FileInputStream(filename);
         prop.load(fileInputStream);
         int width = Integer.parseInt(prop.getProperty("Width"));
-        //todo fix numberformat
         int height = Integer.parseInt(prop.getProperty("Height"));
-        int initialScore = 2000 * (int) Math.sqrt(width * height);
-        int damageScore = -(initialScore) / 3;
-        int keyScore = (initialScore) / 2;
+        ScoringHelper.setHeight(height);
+        ScoringHelper.setWidth(width);
         Level level = new Level(width, height);
         for (int x = 0; x < width; ++x) {
             for (int y = 0; y < height; ++y) {
@@ -51,7 +50,7 @@ public class LevelInputOutput {
                         level.addStaticGameObject(new EntranceGameObject(), x, y);
                         if (prop.getProperty("playerX") == null) {
                             // it's not a player save, hence we generate a new object
-                            level.setPlayer(new PlayerGameObject(x, y, 5, level, initialScore, false));
+                            level.setPlayer(new PlayerGameObject(x, y, 5, level, false));
                             //todo refactor life count in external config file maybe?
                         }
                         break;
@@ -62,10 +61,10 @@ public class LevelInputOutput {
                         level.addStaticGameObject(new StaticTrapGameObject(), x, y);
                         break;
                     case 4:
-                        level.addDynamicGameobject(new MovingTrapGameObject(x, y, damageScore, level));
+                        level.addDynamicGameobject(new MovingTrapGameObject(x, y, level));
                         break;
                     case 5:
-                        level.addStaticGameObject(new KeyGameObject(keyScore), x, y);
+                        level.addStaticGameObject(new KeyGameObject(), x, y);
                         break;
                     case 6:
                         level.addStaticGameObject(new HealthGameObject(), x, y);
@@ -80,7 +79,7 @@ public class LevelInputOutput {
             int playerLives = Integer.parseInt(prop.getProperty("playerLives"));
             int playerScore = Integer.parseInt(prop.getProperty("playerScore"));
             boolean playerHasKey = Boolean.parseBoolean(prop.getProperty("playerHaskey"));
-            level.setPlayer(new PlayerGameObject(playerX, playerY, playerLives, level, playerScore, playerHasKey));
+            level.setPlayer(new PlayerGameObject(playerX, playerY, playerLives, level, playerHasKey));
             NotificationCenter.postNotification(NotificationMessage.SAVE_LOAD_SUCCESS);
         } else {
             NotificationCenter.postNotification(NotificationMessage.LEVEL_LOAD_SUCCESS);

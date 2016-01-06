@@ -1,6 +1,7 @@
 package capstone.gameobject.dynamicObjects;
 
 import capstone.DeltaTimeHelper;
+import capstone.ScoringHelper;
 import capstone.gameobject.dynamicObjects.BulletGameObject.Direction;
 import capstone.gameobject.staticObjects.StaticGameObject;
 import capstone.level.Level;
@@ -27,22 +28,20 @@ public class PlayerGameObject extends DynamicGameObject {
 
     /**
      * Creates a new player object at the given coordinate with the given parameters.
-     *
-     * @param x      x coordinate of the player
+     *  @param x      x coordinate of the player
      * @param y      y coordinate of the player
      * @param lives  amount of lives the player has
      * @param l      level in which the player resides
-     * @param score  score the player has
      * @param hasKey whether the player has a key in his inventory.
      */
-    public PlayerGameObject(int x, int y, int lives, Level l, int score, boolean hasKey) {
+    public PlayerGameObject(int x, int y, int lives, Level l, boolean hasKey) {
         super(x, y, l);
         this.lives = lives;
         this.representation = 'X';
         this.backgroundColor = Terminal.Color.GREEN;
         //this.backgroundColor = Terminal.Color.DEFAULT;
         this.foregroundColor = Terminal.Color.WHITE;
-        this.score = score;
+        this.score = ScoringHelper.getFormula();
         this.hasKey = hasKey;
         this.entityName = "Player";
         this.deltaTimeHelper = new DeltaTimeHelper();

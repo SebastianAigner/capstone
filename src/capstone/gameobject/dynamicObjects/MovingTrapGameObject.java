@@ -1,6 +1,7 @@
 package capstone.gameobject.dynamicObjects;
 
 import capstone.DeltaTimeHelper;
+import capstone.ScoringHelper;
 import capstone.level.Level;
 import capstone.level.LevelHelper;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -12,7 +13,6 @@ public class MovingTrapGameObject extends DynamicGameObject {
     private DeltaTimeHelper damageDeltaTimeHelper;
     private final DeltaTimeHelper animationTimeHelper;
     private int animationStep = 0;
-    private int scoreDeduction;
     private int playerLocationX;
     private int playerLocationY;
     private Random random;
@@ -23,17 +23,13 @@ public class MovingTrapGameObject extends DynamicGameObject {
      * @param y initial y coordinate of the trap
      * @param l the level that contains the trap
      */
-    public MovingTrapGameObject(int x, int y, Level l) {
-        this(x, y, -10000, l);
-    }
 
-    public MovingTrapGameObject(int x, int y, int scoreDeduction, Level l) {
+    public MovingTrapGameObject(int x, int y, Level l) {
         super(x, y, l);
         this.representation = '|';
         this.foregroundColor = Terminal.Color.RED;
         this.backgroundColor = Terminal.Color.BLACK;
         this.entityName = "Moving Trap";
-        this.scoreDeduction = scoreDeduction;
         this.deltaTimeHelper = new DeltaTimeHelper();
         this.damageDeltaTimeHelper = new DeltaTimeHelper();
         this.animationTimeHelper = new DeltaTimeHelper();
@@ -59,7 +55,7 @@ public class MovingTrapGameObject extends DynamicGameObject {
             if (damageDeltaTimeHelper.getDeltaTime() > 1000) {
                 damageDeltaTimeHelper.reset();
                 p.modifyLives(-1);
-                p.modifyScore(scoreDeduction);
+                p.modifyScore(-ScoringHelper.getFormula() / 5);
             }
         }
         p.setNeedsUpdate(true);

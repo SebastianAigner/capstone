@@ -48,7 +48,7 @@ public class Level {
             y = 0;
         }
         //at this point it is made sure that the player is within the boundaries of the level
-        this.player = new PlayerGameObject(x, y, 5, this, 10000, false);
+        this.player = new PlayerGameObject(x, y, 5, this, false);
     }
 
     /**
