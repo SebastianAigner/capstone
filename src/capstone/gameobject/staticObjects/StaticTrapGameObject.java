@@ -34,7 +34,7 @@ public class StaticTrapGameObject extends StaticGameObject {
         //todo deduct score
         if (d.getDeltaTime() > 1000) {
             p.modifyLives(-1);
-            p.modifyScore(-ScoringHelper.getFormula() / 5);
+            p.modifyScore(-ScoringHelper.getBaseValue() / 5);
             d.reset();
         }
     }

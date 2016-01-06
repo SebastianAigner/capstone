@@ -27,9 +27,7 @@ public class MenuView extends View {
     private Level level;
     private Terminal.Color textColorForeground = Terminal.Color.WHITE;
     private Terminal.Color textColorBackground = Terminal.Color.DEFAULT;
-    private boolean requestsViewStackRemoval = false;
     private LevelView levelView;
-    private View viewStackAddition;
     private String statusLine = "";
     private boolean statusLineDrawn = false;
     private int choiceListEndPosition = 0;
@@ -144,26 +142,6 @@ public class MenuView extends View {
     }
 
     /**
-     * When the Menu View wants to open a submenu or in general a new view, it will be made available here.
-     *
-     * @return new View
-     */
-    @Override
-    public View requestsViewStackAddition() {
-        return viewStackAddition;
-    }
-
-    /**
-     * When the Menu View wants to close itself, it will be indicated by the return of this method.
-     *
-     * @return menu wants to be removed from the view stack
-     */
-    @Override
-    public boolean requestsViewStackRemoval() {
-        return requestsViewStackRemoval;
-    }
-
-    /**
      * Checks for different tasks such as continuing the game, saving a game, quitting the game and creating subviews
      * such as legends.
      */
@@ -172,7 +150,7 @@ public class MenuView extends View {
         if (NotificationCenter.checkForNotification(NotificationMessage.CONTINUE)) {
             //Notice however that the Notification does not get removed here. Instead, it is used in the LevelView to
             //Ensure that all on-screen elements will be redrawn correctly.
-            requestsViewStackRemoval = true;
+            viewStackRemoval = true;
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.SAVE_SAVE)) {
             saveCurrentLevel();
@@ -201,14 +179,6 @@ public class MenuView extends View {
             NotificationCenter.removeNotifictaion(NotificationMessage.SAVE_SAVE_SUCCESS);
         }
 
-    }
-
-    /**
-     * Resets the stack addition to null to prevent multiple adding of the same view.
-     */
-    @Override
-    public void resetViewStackAddition() {
-        viewStackAddition = null;
     }
 
     /**

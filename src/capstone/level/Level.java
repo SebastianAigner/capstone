@@ -10,6 +10,17 @@ import java.util.ArrayList;
 
 /**
  * The level class represents all game objects and the attached logic that is required in order to play the game.
+ * A few words about the memory architecture:
+ *
+ * Static Game Objects are held in a 2D array. They do not know their own coordinates, and they do not need to, since
+ * they will never move. They also do not need to be updated periodically. Because they have fixed positions, they make
+ * for great collision detection (the collision of a dynamic element with the surrounding static elements can be done
+ * within fixed time, whilst if I would not split them into dynamic and static game objects, you would have to compare
+ * every object to each other, which is very calculation intensive.
+ *
+ * Dynamic Game Object are held in an arraylist. They know their own coordinates, and they are naturally drawn on top of
+ * any static game objects (e.g. a player on top of a spike or a key). Since they are updated regularly, I chose this
+ * memory format because it ensures I only iterate over the necessary items.
  */
 public class Level {
     private PlayerGameObject player;
@@ -17,7 +28,7 @@ public class Level {
     private ArrayList<DynamicGameObject> dynamicGameObjects;
     private int levelWidth;
     private int levelHeight;
-    private String levelname;
+    private String levelName;
 
     /**
      * Creates an empty rectangular level with the correct size.
@@ -104,8 +115,8 @@ public class Level {
      * @return the gameobjects contained in the given square
      */
     public GameObject[][] requestStaticObjectsForFrame(int xOffset, int yOffset, int width, int height) {
+        //making sure we don't go out of bounds
         if (width > levelWidth) {
-            //making sure we don't go out of bounds
             width = levelWidth;
         }
         if (height > levelHeight) {
@@ -124,26 +135,31 @@ public class Level {
         GameObject[][] frame = new GameObject[width][height];
         //Creates a new 2D array with the correct size and fills it with the elements. accordingly.
         for (int x = xOffset; x < xOffset + width; ++x) {
-            boolean successfulCopy;
-            do {
                 try {
                     System.arraycopy(staticGameObjects[x], yOffset, frame[x - xOffset], 0, yOffset + height - yOffset);
-                    successfulCopy = true;
                 } catch (ArrayIndexOutOfBoundsException ex) {
-                    //System.out.println("Please stop resizing the window in that speed.");
-                    successfulCopy = false;
+                    System.out.println("An illegal frame was requested.");
                 }
-            } while (!successfulCopy);
         }
         return frame;
     }
 
-    public String getLevelname() {
-        return levelname;
+    /**
+     * gets the filename of the current level
+     *
+     * @return filename of the current level
+     */
+    public String getLevelName() {
+        return levelName;
     }
 
-    public void setLevelname(String levelname) {
-        this.levelname = levelname;
+    /**
+     * Sets the level name (e.g. level_big_dense.properties)
+     *
+     * @param levelName name of the level
+     */
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 
     /**
@@ -160,10 +176,19 @@ public class Level {
         //player.update(deltatime);
     }
 
+    /**
+     * Removes a dynamic game object from the arraylist.
+     * @param dynamicGameObject
+     */
     public void removeDynamicGameObject(DynamicGameObject dynamicGameObject) {
         dynamicGameObjects.remove(dynamicGameObject);
     }
 
+    /**
+     * Remove a static game object from the 2D array.
+     * @param x x coordinate of the static game object to be removed
+     * @param y y coordinate of the static game object to be removed
+     */
     public void removeStaticGameObject(int x, int y) {
         staticGameObjects[x][y] = null;
     }

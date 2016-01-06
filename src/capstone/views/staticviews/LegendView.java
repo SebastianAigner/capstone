@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * By choice, the user will be presented with a legend view detailing all the information about the objects available
- * in the game.
+ * in the game, as well as some info on the game itself.
  */
 public class LegendView extends StaticView {
     private ArrayList<GameObject> explainedGameObjects;
@@ -70,7 +70,6 @@ public class LegendView extends StaticView {
             }
             ArrayList<String> lines = new ArrayList<>();
             String currentLineText = "";
-            boolean printed = false;
             //Wrap the description text according to the window width.
             for (String word : descriptionText.split(" ")) {
                 if (currentLineText.length() + word.length() < width - 3) {

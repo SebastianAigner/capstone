@@ -5,16 +5,14 @@ import capstone.gameobject.dynamicObjects.MovingTrapGameObject;
 import capstone.gameobject.dynamicObjects.PlayerGameObject;
 import capstone.gameobject.staticObjects.*;
 
-import java.rmi.activation.UnknownObjectException;
-
 
 public class SaveFileHelper {
     /**
      * Helper method used to determine the correct way to save objects in properties files.
+     * Allows saving of all the original elements with their representations, plus the extra objects (healthkit).
      *
-     * @param gameObject
-     * @return
-     * @throws UnknownObjectException
+     * @param gameObject object that should be saved
+     * @return game object representation according to the specifications in the original document.
      */
     public static String getSavegameCharacterRepresentation(GameObject gameObject) {
         if (gameObject == null) {

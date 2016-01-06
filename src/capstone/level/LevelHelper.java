@@ -17,10 +17,12 @@ public class LevelHelper {
     public static boolean checkWalkable(Level l, int x, int y, boolean isPlayer) {
         StaticGameObject[][] s = l.getStaticGameObjects();
         if (x < 0 || y < 0 || y >= s.length || x >= s[0].length) {
+            //object tried to walk out of bounds
             return false;
         }
         StaticGameObject location = l.getStaticGameObjects()[x][y];
         if (location == null) {
+            //empty space
             return true;
         }
         if (isPlayer) {

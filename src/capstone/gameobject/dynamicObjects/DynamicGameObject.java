@@ -95,7 +95,6 @@ public abstract class DynamicGameObject extends GameObject {
      */
     @Override
     public abstract void modifyPlayer(PlayerGameObject p);
-    //todo make sure all subclasses check the player position with their own position before applying changes
 
     /**
      * Updates a dynamic game object according to the time delta that has passed

@@ -22,6 +22,11 @@ public class WallGameObject extends StaticGameObject {
         this.entityName = "Wall";
     }
 
+    /**
+     * A wall does not modify the player
+     *
+     * @param playerGameObject
+     */
     @Override
     public void modifyPlayer(PlayerGameObject playerGameObject) {
 

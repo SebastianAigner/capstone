@@ -9,12 +9,12 @@ public abstract class GameObject {
     protected Terminal.Color backgroundColor; //background color in game and legend
     protected String entityName;
 
-    public GameObject(char representation, Terminal.Color foregroundColor, Terminal.Color backgroundColor) {
-        this.representation = representation;
-        this.foregroundColor = foregroundColor;
-        this.backgroundColor = backgroundColor;
-    }
-
+    /**
+     * Creates the new game object with default values for the terminal representation
+     * In case a game object forgets to set its terminal representation, it will be provided with a bright color scheme
+     * and a question mark to indicate to the developer that while functionality might already be working, the character
+     * representation for the object is still missing.
+     */
     public GameObject() {
         this.representation = '?';
         this.backgroundColor = Terminal.Color.CYAN;

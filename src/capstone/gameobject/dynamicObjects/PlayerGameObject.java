@@ -28,7 +28,7 @@ public class PlayerGameObject extends DynamicGameObject {
 
     /**
      * Creates a new player object at the given coordinate with the given parameters.
-     *  @param x      x coordinate of the player
+     * @param x      x coordinate of the player
      * @param y      y coordinate of the player
      * @param lives  amount of lives the player has
      * @param l      level in which the player resides
@@ -39,9 +39,8 @@ public class PlayerGameObject extends DynamicGameObject {
         this.lives = lives;
         this.representation = 'X';
         this.backgroundColor = Terminal.Color.GREEN;
-        //this.backgroundColor = Terminal.Color.DEFAULT;
         this.foregroundColor = Terminal.Color.WHITE;
-        this.score = ScoringHelper.getFormula();
+        this.score = ScoringHelper.getBaseValue();
         this.hasKey = hasKey;
         this.entityName = "Player";
         this.deltaTimeHelper = new DeltaTimeHelper();
@@ -157,9 +156,11 @@ public class PlayerGameObject extends DynamicGameObject {
         ArrayList<BulletGameObject> bulletsCopy = new ArrayList<>(bullets);
         for (BulletGameObject b : bulletsCopy) {
             if (b.isCollided()) {
+                //remove collided bullets from the players memory
                 bullets.remove(b);
             }
             if (b.getX() == x && b.getY() == y && b.isHasMoved()) {
+                //the player has walked into one of his own bullets and thus needs to be redrawn
                 this.needsUpdate = true;
             }
         }
@@ -167,6 +168,7 @@ public class PlayerGameObject extends DynamicGameObject {
 
     /**
      * Process the player input and move the player game object accordingly while taking collisions into account.
+     * Also allows the player to throw shurikens in all directions by pressing the WASD buttons.
      *
      * @param keystroke last pressed key by the player
      */
@@ -201,6 +203,8 @@ public class PlayerGameObject extends DynamicGameObject {
                     break;
                 default:
                     Direction d;
+                    //the player has not pressed a directional key, so we assume he is trying to use WASD to fire
+                    //shurikens
                     switch (keystroke.getCharacter()) {
                         case 'w':
                             d = Direction.UP;
@@ -219,6 +223,7 @@ public class PlayerGameObject extends DynamicGameObject {
                     }
                     if (d != null) {
                         if (bulletTimeHelper.getDeltaTime() > 1000) {
+                            //limit the rate at which bullets can be fired
                             BulletGameObject firedBullet = new BulletGameObject(x, y, level, d);
                             bullets.add(firedBullet);
                             level.addDynamicGameobject(firedBullet);

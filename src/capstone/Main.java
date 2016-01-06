@@ -16,7 +16,7 @@ public class Main {
 
     /**
      * Starts the game. Sets up timekeeping devices, a new Swing Terminal, sets the properties required, generates a new
-     * View Manager instance, and starts the main game loop
+     * View Manager instance, and starts the main game loop.
      *
      * @param args
      */

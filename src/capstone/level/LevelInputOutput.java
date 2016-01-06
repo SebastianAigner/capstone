@@ -84,7 +84,7 @@ public class LevelInputOutput {
         } else {
             NotificationCenter.postNotification(NotificationMessage.LEVEL_LOAD_SUCCESS);
         }
-        level.setLevelname(filename);
+        level.setLevelName(filename);
         fileInputStream.close();
         return level;
     }

@@ -30,9 +30,6 @@ public class LevelView extends View {
     private int yOffset;
     private HUD hud;
 
-    private View requestedView;
-    private boolean requestsStackRemoval;
-
     /**
      * Creates a new level view based on a lanterna screen and a given filename relative to the working directory.
      * The file contains a structure that is compatible with the requirements given in the capstone document.
@@ -89,7 +86,7 @@ public class LevelView extends View {
     @Override
     public void processKeystroke(Key keystroke) {
         if (keystroke.getKind() == Key.Kind.Escape) {
-            this.requestedView = new MenuView(screen, width, height, this);
+            this.viewStackAddition = new MenuView(screen, width, height, this);
             level.getPlayer().setPaused(true);
         }
         level.processKeystroke(keystroke);
@@ -117,12 +114,12 @@ public class LevelView extends View {
         level.updateEntities(deltaTime);
         if (playerGameObject.isHasReachedExit()) {
             //The player has won the game, we will show a congratulation to him.
-            this.requestedView = new WinView(screen, width, height, playerGameObject);
+            this.viewStackAddition = new WinView(screen, width, height, playerGameObject);
         }
 
         if (playerGameObject.isDead()) {
             //The player has lost all his lives. We will show him a "Game Over" screen.
-            this.requestedView = new LoseView(screen, width, height, this);
+            this.viewStackAddition = new LoseView(screen, width, height, this);
         }
 
         // check whether the player is out of bounds for the camera
@@ -215,6 +212,7 @@ public class LevelView extends View {
                 }
             }
         }
+        //finally, render the HUD with all the information (if necessary)
         hud.render();
         return true;
     }
@@ -225,6 +223,7 @@ public class LevelView extends View {
      */
     @Override
     public void processResize() {
+        //ensure everything is redrawn properly
         this.hasPrintedStatics = false;
         for (DynamicGameObject d : level.getDynamicGameObjects()) {
             d.setNeedsUpdate(true);
@@ -236,44 +235,11 @@ public class LevelView extends View {
     }
 
     /**
-     * If the LevelView requires another view to be drawn, it will present it's wish to the callers via this method.
-     *
-     * @return requested View that is supposed to be shown above the current one.
-     */
-    @Override
-    public View requestsViewStackAddition() {
-        return requestedView;
-    }
-
-    /**
-     * Used by the external caller to indicate that the requested view has been shown. Makes sure a view is not
-     * requested multiple times.
-     */
-    @Override
-    public void resetViewStackAddition() {
-        this.requestedView = null;
-    }
-
-    /**
-     * Indicates whether this level view has the intent to leave the view stack.
-     *
-     * @return LevelView wants to leave the view stack
-     */
-    @Override
-    public boolean requestsViewStackRemoval() {
-        return requestsStackRemoval;
-    }
-
-    /**
      * Management Update function that is called regardless of whether this is the top view or not.
      * Reacts to Notifications about saving and loading levels.
      */
     @Override
     public void managementUpdate() {
-        if (NotificationCenter.checkForNotification(NotificationMessage.MAIN_MENU)) {
-            //todo implement or remove, sucker!
-            this.requestsStackRemoval = true;
-        }
         if (NotificationCenter.checkForNotification(NotificationMessage.SAVE_LOAD)) {
             try {
                 level = LevelInputOutput.readLevel("save.properties");

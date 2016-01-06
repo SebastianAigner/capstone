@@ -22,12 +22,12 @@ public class NotificationCenter {
     /**
      * Checks whether there is a notification with the given Tag.
      *
-     * @param n Notification value
+     * @param comparingNotification Notification value
      * @return whether a notification exists
      */
-    public static boolean checkForNotification(NotificationMessage n) {
-        for (NotificationMessage notif : notifications) {
-            if (n == notif) {
+    public static boolean checkForNotification(NotificationMessage comparingNotification) {
+        for (NotificationMessage notificationMessage : notifications) {
+            if (comparingNotification == notificationMessage) {
                 return true;
             }
         }

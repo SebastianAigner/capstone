@@ -6,7 +6,7 @@ package capstone;
 public final class ScoringHelper {
     private static int width;
     private static int height;
-    private static int formula;
+    private static int baseValue;
 
     public static int getWidth() {
         return width;
@@ -14,7 +14,7 @@ public final class ScoringHelper {
 
     public static void setWidth(int width) {
         ScoringHelper.width = width;
-        updateFormula();
+        updateBaseValue();
     }
 
     public static int getHeight() {
@@ -23,17 +23,22 @@ public final class ScoringHelper {
 
     public static void setHeight(int height) {
         ScoringHelper.height = height;
-        updateFormula();
+        updateBaseValue();
     }
 
     /**
-     * Updates the current value of the base value / formula to the square root of width times height multiplied by 2000.
+     * Updates the current value of the base value to the square root of width times height multiplied by 2000.
      */
-    private static void updateFormula() {
-        formula = (int) (2000 * Math.sqrt(width * height));
+    private static void updateBaseValue() {
+        baseValue = (int) (2000 * Math.sqrt(width * height));
     }
 
-    public static int getFormula() {
-        return formula;
+    /**
+     * Gets the current Base Value
+     *
+     * @return base value of the score
+     */
+    public static int getBaseValue() {
+        return baseValue;
     }
 }

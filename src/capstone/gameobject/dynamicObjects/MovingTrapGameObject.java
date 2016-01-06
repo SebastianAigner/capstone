@@ -55,7 +55,7 @@ public class MovingTrapGameObject extends DynamicGameObject {
             if (damageDeltaTimeHelper.getDeltaTime() > 1000) {
                 damageDeltaTimeHelper.reset();
                 p.modifyLives(-1);
-                p.modifyScore(-ScoringHelper.getFormula() / 5);
+                p.modifyScore(-ScoringHelper.getBaseValue() / 5);
             }
         }
         p.setNeedsUpdate(true);
@@ -63,7 +63,7 @@ public class MovingTrapGameObject extends DynamicGameObject {
     }
 
     /**
-     * Randomly and "frame-independently" moves the trap in a random direction.
+     * Randomly and "frame-independently" moves the trap in a player-biased-random direction.
      * This method also checks whether collisions are possible, and if so, does not move the trap.
      *
      * @param deltaTime passed time since last call
@@ -110,6 +110,13 @@ public class MovingTrapGameObject extends DynamicGameObject {
         }
     }
 
+    /**
+     * Returns a direction that is biased by the player location. In general, the dynamic traps still move randomly,
+     * but have a higher chance to move towards the player rather than away from him. However, they still move randomly
+     * so they don't get stuck in corners and such.
+     *
+     * @return
+     */
     private int chooseDirection() {
         int direction = 0;
         int playerDeltaX = x - playerLocationX;
@@ -134,6 +141,9 @@ public class MovingTrapGameObject extends DynamicGameObject {
         return direction;
     }
 
+    /**
+     * Forward to the next frame of the animation if enough time has passed
+     */
     private void updateRepresentation() {
         if (animationTimeHelper.getDeltaTime() > 100) {
             animationStep++;

@@ -32,7 +32,7 @@ public class KeyGameObject extends StaticGameObject {
     public void modifyPlayer(PlayerGameObject p) {
         if (!taken) {
             p.takeKey();
-            p.modifyScore(ScoringHelper.getFormula() / 2);
+            p.modifyScore(ScoringHelper.getBaseValue() / 2);
             taken = true;
             this.representation = ' ';
             this.backgroundColor = Terminal.Color.DEFAULT;

@@ -9,7 +9,6 @@ import com.googlecode.lanterna.screen.Screen;
  * elements (such as menus). The user can opt to leave the static view by pressing the Escape key.
  */
 public abstract class StaticView extends View {
-    protected boolean leaveView = false;
     protected boolean hasDrawnStatics;
 
     /**
@@ -32,7 +31,7 @@ public abstract class StaticView extends View {
     @Override
     public void processKeystroke(Key keystroke) {
         if (keystroke.getKind() == Key.Kind.Escape) {
-            leaveView = true;
+            viewStackRemoval = true;
         }
     }
 
@@ -48,29 +47,6 @@ public abstract class StaticView extends View {
         hasDrawnStatics = false;
     }
 
-    /**
-     * A static view will not request a new View to be pushed on the view stack.
-     *
-     * @return null
-     */
-    @Override
-    public View requestsViewStackAddition() {
-        return null;
-    }
-
-    /**
-     * Whether the view wants to be removed from the view stack
-     *
-     * @return intent to leave the view stack
-     */
-    @Override
-    public boolean requestsViewStackRemoval() {
-        return leaveView;
-    }
-
-    /**
-     * Since there is no view that is requested, the logic for resetting the addition will stay blank.
-     */
     @Override
     public void resetViewStackAddition() {
 

@@ -50,8 +50,8 @@ public class LoseView extends StaticView {
 
     private void reloadLevelAndContinue() {
         try {
-            this.levelView.setLevel(LevelInputOutput.readLevel(levelView.getLevel().getLevelname()));
-            leaveView = true;
+            this.levelView.setLevel(LevelInputOutput.readLevel(levelView.getLevel().getLevelName()));
+            viewStackRemoval = true;
             NotificationCenter.postNotification(NotificationMessage.CONTINUE);
         } catch (IOException ex) {
             System.out.println("Could not reload level.");

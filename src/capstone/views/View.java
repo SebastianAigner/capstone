@@ -7,6 +7,8 @@ public abstract class View {
     protected Screen screen;
     protected int width;
     protected int height;
+    protected View viewStackAddition;
+    protected boolean viewStackRemoval;
 
     /**
      * Generates a new view with the given parameters.
@@ -22,18 +24,54 @@ public abstract class View {
         System.out.println("Created new view " + width + "x" + height);
     }
 
+    /**
+     * The view processes a user input keystroke
+     *
+     * @param keystroke last user keystroke
+     */
     public abstract void processKeystroke(Key keystroke);
 
+    /**
+     * The view will update in relation to the given time passed since the last call
+     * @param deltatime time passed sincel last call
+     * @return successful update
+     */
     public abstract boolean update(int deltatime);
 
+    /**
+     * The view will handle a resize of the window in width and/or height
+     */
     public abstract void processResize();
 
-    public abstract View requestsViewStackAddition();
+    /**
+     * The view exposes views that should be added by the current view manager
+     *
+     * @return new view to be shown
+     */
+    public View requestsViewStackAddition() {
+        return this.viewStackAddition;
+    }
 
-    public abstract boolean requestsViewStackRemoval();
+    /**
+     * The view exposes the intent to be removed by the current view manager
+     *
+     * @return this view should be removed
+     */
+    public boolean requestsViewStackRemoval() {
+        return this.viewStackRemoval;
+    }
 
-    public abstract void managementUpdate(); //used for management. duh.
+    /**
+     * The view updates itself regardless of its position in the view manager, even in background.
+     */
+    public abstract void managementUpdate();
 
-    public abstract void resetViewStackAddition();
+    /**
+     * Resets the intention to add something to the view manager in order to prevent multiple additions of the same
+     * object
+     */
+    public void resetViewStackAddition() {
+        this.viewStackAddition = null;
+    }
 
 }

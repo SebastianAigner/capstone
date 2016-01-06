@@ -34,6 +34,11 @@ public class DeltaTimeHelper {
         return time;
     }
 
+    /**
+     * Gives a String representation of the current deltatime.
+     *
+     * @return current delta time passed as String
+     */
     @Override
     public String toString() {
         return Integer.toString(getDeltaTime());
