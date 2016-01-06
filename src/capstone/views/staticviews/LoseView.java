@@ -45,7 +45,6 @@ public class LoseView extends StaticView {
                 reloadLevelAndContinue();
             default:
         }
-        //todo press enter to restart
     }
 
     private void reloadLevelAndContinue() {

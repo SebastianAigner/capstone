@@ -57,6 +57,5 @@ public abstract class StaticView extends View {
      */
     @Override
     public void managementUpdate() {
-        //TODO IS MGMT even necessary at this point anymore?
     }
 }

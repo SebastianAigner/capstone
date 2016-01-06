@@ -39,8 +39,4 @@ public class KeyGameObject extends StaticGameObject {
         }
     }
 
-    /**
-     * Whether the object should be saved. A key will only be saved if it has not been picked up yet.
-     * @return true when not taken
-     */
 }

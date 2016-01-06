@@ -75,7 +75,6 @@ public class BulletGameObject extends DynamicGameObject {
     public void update(int deltaTime) {
         if (deltaTimeHelper.getDeltaTime() > 150) {
             if (this.representation == this.originalRepresentation) {
-                //todo refactor into variable
                 this.representation = this.alternativeRepresentation;
             } else {
                 this.representation = this.originalRepresentation;
