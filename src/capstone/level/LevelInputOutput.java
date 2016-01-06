@@ -7,12 +7,12 @@ import capstone.gameobject.staticObjects.*;
 import capstone.notificationcenter.NotificationCenter;
 import capstone.notificationcenter.NotificationMessage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-
 /**
  * The Level IO class provides static methods for saving and reading levels in the format that is outlined by the
  * capstone documentation.
@@ -131,5 +131,17 @@ public class LevelInputOutput {
         prop.store(fileOutputStream, null);
         NotificationCenter.postNotification(NotificationMessage.SAVE_SAVE_SUCCESS);
         fileOutputStream.close();
+    }
+
+    public static ArrayList<String> getAvailableLevels() {
+        File currentDirectory = new File(".");
+        ArrayList<String> names = new ArrayList<>();
+        File[] filesList = currentDirectory.listFiles();
+        for (File f : filesList) {
+            if (f.isFile() && f.getName().contains(".properties")) {
+                names.add(f.getName());
+            }
+        }
+        return names;
     }
 }

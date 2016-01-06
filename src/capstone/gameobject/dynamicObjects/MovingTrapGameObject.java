@@ -13,7 +13,9 @@ public class MovingTrapGameObject extends DynamicGameObject {
     private final DeltaTimeHelper animationTimeHelper;
     private int animationStep = 0;
     private int scoreDeduction;
-
+    private int playerLocationX;
+    private int playerLocationY;
+    private Random random;
     /**
      * Creates a new moving trap at a given X/Y-spawn position in a given level.
      *
@@ -38,6 +40,7 @@ public class MovingTrapGameObject extends DynamicGameObject {
         this.animationStep = 0;
         this.destroyable = true;
         this.savable = true;
+        random = new Random();
     }
 
     /**
@@ -49,6 +52,8 @@ public class MovingTrapGameObject extends DynamicGameObject {
      */
     @Override
     public void modifyPlayer(PlayerGameObject p) {
+        this.playerLocationX = p.getX();
+        this.playerLocationY = p.getY();
         if (x == p.getX() && y == p.getY()) {
             needsUpdate = true;
             if (damageDeltaTimeHelper.getDeltaTime() > 1000) {
@@ -58,7 +63,7 @@ public class MovingTrapGameObject extends DynamicGameObject {
             }
         }
         p.setNeedsUpdate(true);
-        //todo on collision with player ensure that the player gets redrawn afterwards (needs update then!)
+        //Redraw the player upon collision
     }
 
     /**
@@ -71,13 +76,12 @@ public class MovingTrapGameObject extends DynamicGameObject {
     public void update(int deltaTime) {
         updateRepresentation();
         //System.out.println(internalDeltaCounter);
-        if (deltaTimeHelper.getDeltaTime() > 300) {
+        if (deltaTimeHelper.getDeltaTime() > 500) {
             deltaTimeHelper.reset();
             oldX = x;
             oldY = y;
             //determine walking direction by throw of dice
-            Random r = new Random();
-            int direction = r.nextInt(4);
+            int direction = chooseDirection();
             switch (direction) {
                 case 0:
                     //up
@@ -108,6 +112,30 @@ public class MovingTrapGameObject extends DynamicGameObject {
                 needsUpdate = true;
             }
         }
+    }
+
+    private int chooseDirection() {
+        int direction = 0;
+        int playerDeltaX = x - playerLocationX;
+        int playerDeltaY = y - playerLocationY;
+        if (Math.abs(playerDeltaX) > Math.abs(playerDeltaY)) {
+            if (playerDeltaX > 0) {
+                direction = 2; //go left
+            } else {
+                direction = 3; //go right
+            }
+        } else {
+            if (playerDeltaY > 0) {
+                direction = 0; //go up
+            } else {
+                direction = 1; //go down
+            }
+        }
+        if (random.nextInt(5) > 2) {
+            //throw in some random movement just for the natural movement and to prevent getting stuck in a corner
+            return random.nextInt(4);
+        }
+        return direction;
     }
 
     private void updateRepresentation() {

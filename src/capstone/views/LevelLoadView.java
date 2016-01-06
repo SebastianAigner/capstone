@@ -9,10 +9,8 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-/**
- * Created by sebi on 06.01.16.
- */
 public class LevelLoadView extends View {
 
     private boolean hasDrawnStatics;
@@ -23,6 +21,7 @@ public class LevelLoadView extends View {
     private boolean statisLineDrawn;
     private boolean requestsViewStackRemoval = false;
     private LevelView levelView;
+    private ArrayList<String> fileNames;
 
     /**
      * Generates a new view with the given parameters.
@@ -63,6 +62,13 @@ public class LevelLoadView extends View {
             screen.clear();
             hasDrawnStatics = true;
             screen.putString(0, 0, promptPrefix, Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
+
+            //draw available files
+            ArrayList<String> availableLevels = LevelInputOutput.getAvailableLevels();
+            screen.putString(0, 6, "Available levels to load:", Terminal.Color.GREEN, Terminal.Color.DEFAULT);
+            for (int i = 0; i < availableLevels.size(); ++i) {
+                screen.putString(0, 7 + i, availableLevels.get(i), Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
+            }
         }
         if (!filename.equals(oldFilename)) {
             oldFilename = filename;
