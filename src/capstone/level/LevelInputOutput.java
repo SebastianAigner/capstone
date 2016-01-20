@@ -51,7 +51,6 @@ public class LevelInputOutput {
                         if (prop.getProperty("playerX") == null) {
                             // it's not a player save, hence we generate a new object
                             level.setPlayer(new PlayerGameObject(x, y, 5, level, false));
-                            //todo refactor life count in external config file maybe?
                         }
                         break;
                     case 2:

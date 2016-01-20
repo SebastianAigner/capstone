@@ -173,7 +173,6 @@ public class Level {
         for (DynamicGameObject d : workingCopy) {
             d.update(deltatime);
         }
-        //player.update(deltatime);
     }
 
     /**
