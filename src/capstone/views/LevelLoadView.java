@@ -77,6 +77,7 @@ public class LevelLoadView extends View {
     @Override
     public boolean update(int deltatime) {
         if (!hasDrawnStatics) {
+            //draw static content when necessary
             screen.clear();
             hasDrawnStatics = true;
             screen.putString(0, 0, promptPrefix, Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
@@ -90,10 +91,13 @@ public class LevelLoadView extends View {
         }
         if (!filename.equals(oldFilename)) {
             oldFilename = filename;
+            //output the filename typed in by the user.
             screen.putString(promptPrefix.length(), 0, filename, Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
+            //enable backspace functionality
             screen.putString(promptPrefix.length() + filename.length(), 0, " ", Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
         }
         if (!statusLineDrawn) {
+            //draw status line if necessary
             screen.putString(0, 3, statusLine, Terminal.Color.RED, Terminal.Color.DEFAULT);
         }
         return true;
@@ -126,6 +130,7 @@ public class LevelLoadView extends View {
             this.filename = "";
             this.statusLineDrawn = false;
             hasDrawnStatics = false;
+            //refresh screen to ensure that the error message is printed ingame
         }
     }
 }
