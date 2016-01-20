@@ -114,7 +114,7 @@ public class LevelView extends View {
         level.updateEntities(deltaTime);
         if (playerGameObject.isHasReachedExit()) {
             //The player has won the game, we will show a congratulation to him.
-            this.viewStackAddition = new WinView(screen, width, height, playerGameObject);
+            this.viewStackAddition = new WinView(screen, width, height, playerGameObject, this);
         }
 
         if (playerGameObject.isDead()) {
@@ -196,6 +196,8 @@ public class LevelView extends View {
                 int y = d.getY();
                 int oldX = d.getOldX();
                 int oldY = d.getOldY();
+                //check whether the element is within boundaries, currently leaving the boundaries or currently entering
+                // the boundaries or whether it should be removed. (-1|-1)
                 if (!(x < xOffset || y < yOffset - 1 || x >= xOffset + width || y >= yOffset + height + 1) || (x == -1 && y == -1)) {
                     if (!(y >= yOffset + height)) {
                         screen.putString(x - xOffset, y - yOffset, d.toString(), d.getForegroundColor(), d.getBackgroundColor());

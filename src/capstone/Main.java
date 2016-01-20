@@ -12,7 +12,7 @@ import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 import java.io.IOException;
 
 public class Main {
-    static String startLevel = "level_bench.properties";
+    static String startLevel = "level_big_sparse.properties";
 
     /**
      * Starts the game. Sets up timekeeping devices, a new Swing Terminal, sets the properties required, generates a new
@@ -33,8 +33,8 @@ public class Main {
         try {
             levelView = new LevelView(screen, startLevel);
         } catch (IOException ex) {
-            System.out.println("Could not load start level! Please ensure that " + startLevel + " exists and is in the " +
-                    "correct format!");
+            System.out.println("Could not load start level! Please ensure that "
+                    + System.getProperty("user.dir") + startLevel + " exists and is in the correct format!");
             ex.printStackTrace();
             System.exit(1);
             //Failure to load the level results in ending the program

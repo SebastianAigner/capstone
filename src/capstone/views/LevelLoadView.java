@@ -82,7 +82,7 @@ public class LevelLoadView extends View {
 
             //draw available files
             ArrayList<String> availableLevels = LevelInputOutput.getAvailableLevels();
-            screen.putString(0, 6, "Available levels to load:", Terminal.Color.GREEN, Terminal.Color.DEFAULT);
+            screen.putString(0, 6, "Available levels to load in " + System.getProperty("user.dir") + ":", Terminal.Color.GREEN, Terminal.Color.DEFAULT);
             for (int i = 0; i < availableLevels.size(); ++i) {
                 screen.putString(0, 7 + i, availableLevels.get(i), Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
             }
