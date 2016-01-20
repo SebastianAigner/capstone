@@ -205,7 +205,7 @@ public class LevelView extends View {
                     if (oldX != x || oldY != y) {
                         StaticGameObject staticGameObject = staticGameObjects[oldX][oldY];
                         if (staticGameObject != null) {
-                            screen.putString(oldX, oldY, staticGameObject.toString(), staticGameObject.getForegroundColor(), staticGameObject.getBackgroundColor());
+                            screen.putString(oldX - xOffset, oldY - yOffset, staticGameObject.toString(), staticGameObject.getForegroundColor(), staticGameObject.getBackgroundColor());
                         } else if (!(oldY >= yOffset + height)) {
                             screen.putString(d.getOldX() - xOffset, d.getOldY() - yOffset, " ", Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
                         }
