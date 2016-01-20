@@ -30,8 +30,7 @@ public class DeltaTimeHelper {
      * @return time delta
      */
     public int getDeltaTime() {
-        int time = toIntExact(System.currentTimeMillis() % 100000000) - millis;
-        return time;
+        return toIntExact(System.currentTimeMillis() % 100000000) - millis;
     }
 
     /**

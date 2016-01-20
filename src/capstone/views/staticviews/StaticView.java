@@ -26,7 +26,7 @@ public abstract class StaticView extends View {
      * Processes the incoming keystrokes. If an Escape-Press is detected, an intent to leave the view will be issued.
      * All other keys will be disregarded.
      *
-     * @param keystroke
+     * @param keystroke key pressed event by the user
      */
     @Override
     public void processKeystroke(Key keystroke) {
@@ -45,11 +45,6 @@ public abstract class StaticView extends View {
         width = screen.getTerminalSize().getColumns();
         height = screen.getTerminalSize().getRows();
         hasDrawnStatics = false;
-    }
-
-    @Override
-    public void resetViewStackAddition() {
-
     }
 
     /**

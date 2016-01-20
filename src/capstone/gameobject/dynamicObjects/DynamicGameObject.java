@@ -53,7 +53,7 @@ public abstract class DynamicGameObject extends GameObject {
     /**
      * Whether an update of the player representation is required.
      *
-     * @return
+     * @return update is required
      */
     public boolean isNeedsUpdate() {
         return needsUpdate;
@@ -62,14 +62,14 @@ public abstract class DynamicGameObject extends GameObject {
     /**
      * Set whether an update is needed or not.
      *
-     * @param needsUpdate
+     * @param needsUpdate update needed
      */
     public void setNeedsUpdate(boolean needsUpdate) {
         this.needsUpdate = needsUpdate;
     }
 
     /**
-     * Returns the pre-movement x coordiante
+     * Returns the pre-movement x coordinate
      *
      * @return x coordinate before movement
      */

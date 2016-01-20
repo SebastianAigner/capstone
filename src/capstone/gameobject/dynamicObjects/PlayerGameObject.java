@@ -22,12 +22,13 @@ public class PlayerGameObject extends DynamicGameObject {
     private int score;
     private boolean hasReachedExit;
     private boolean isPaused;
-    private DeltaTimeHelper deltaTimeHelper;
-    private DeltaTimeHelper bulletTimeHelper;
-    private ArrayList<BulletGameObject> bullets;
+    private final DeltaTimeHelper deltaTimeHelper;
+    private final DeltaTimeHelper bulletTimeHelper;
+    private final ArrayList<BulletGameObject> bullets;
 
     /**
      * Creates a new player object at the given coordinate with the given parameters.
+     *
      * @param x      x coordinate of the player
      * @param y      y coordinate of the player
      * @param lives  amount of lives the player has

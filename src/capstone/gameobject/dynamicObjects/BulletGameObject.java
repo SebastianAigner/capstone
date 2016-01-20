@@ -14,14 +14,14 @@ import java.util.Iterator;
  */
 public class BulletGameObject extends DynamicGameObject {
 
-    private DeltaTimeHelper deltaTimeHelper; //used for flight speed
-    private Direction direction; //direction the bullet is going
+    private final DeltaTimeHelper deltaTimeHelper; //used for flight speed
+    private final Direction direction; //direction the bullet is going
     private boolean collided; //whether the bullet has collided
     private boolean hasMoved; //whether the bullet has moved from its recent location
     private boolean hasHitEnemy; //whether the bullet has hit an enemy
     private boolean hasAddedPlayerScore; //whether the player score was already modified
-    private char alternativeRepresentation;
-    private char originalRepresentation;
+    private final char alternativeRepresentation;
+    private final char originalRepresentation;
 
     /**
      * Directions used for the trajectory of the Bullet
@@ -34,7 +34,7 @@ public class BulletGameObject extends DynamicGameObject {
     }
 
     /**
-     * Creates a new bullet with given coordinates in a given level with a trajecotry direction
+     * Creates a new bullet with given coordinates in a given level with a trajectory direction
      *
      * @param x         x coordinate of the spawned bullet
      * @param y         y coordinate of the spawned bullet
@@ -56,6 +56,7 @@ public class BulletGameObject extends DynamicGameObject {
 
     /**
      * Checks whether the bullet has hit an enemy, and, if so, adds score to the player.
+     *
      * @param p a reference to the player object.
      */
     @Override
@@ -69,6 +70,7 @@ public class BulletGameObject extends DynamicGameObject {
     /**
      * Animates the representation of the shuriken ("rotating"), checks for collisions, removes itself from the level
      * if necessary, and removes hit enemies from the game.
+     *
      * @param deltaTime passed time since last call
      */
     @Override

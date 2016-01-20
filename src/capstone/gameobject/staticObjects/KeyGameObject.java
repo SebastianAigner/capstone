@@ -9,7 +9,6 @@ public class KeyGameObject extends StaticGameObject {
 
     /**
      * Constructs a new key game object at the given coordinates in the given level.
-     *
      */
     public KeyGameObject() {
 

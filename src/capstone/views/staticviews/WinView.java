@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  * The Win View is shown to the player when he has successfully completed the game / a level. It shows interesting
- * information like score and remaining lives.
+ * information like score and remaining lives, and allows the user to either restart the game, or quit the game.
  */
 public class WinView extends StaticView {
     private PlayerGameObject playerGameObject;
@@ -32,11 +32,12 @@ public class WinView extends StaticView {
 
     /**
      * Creates a new WinView with an attached player object from which it will take the information.
-     *  @param s                Lanterna screen to be drawn on
+     *
+     * @param s                Lanterna screen to be drawn on
      * @param width            width of the view
      * @param height           height of the view
      * @param playerGameObject Player Game Object containing the displayed information.
-     * @param levelView
+     * @param levelView        LevelView containing the level that can be reloaded upon choosing the restart option
      */
     public WinView(Screen s, int width, int height, PlayerGameObject playerGameObject, LevelView levelView) {
         this(s, width, height);
@@ -48,7 +49,7 @@ public class WinView extends StaticView {
     /**
      * Other than a regular StaticView, upon winning, the game will close itself when pressing the Escape-Key.
      *
-     * @param keystroke
+     * @param keystroke last user key press event
      */
     @Override
     public void processKeystroke(Key keystroke) {
@@ -61,6 +62,9 @@ public class WinView extends StaticView {
         }
     }
 
+    /**
+     * Attempts to reload the current level (thus reinitialising the player) and add it to the level view.
+     */
     private void reloadLevelAndContinue() {
         try {
             this.levelView.setLevel(LevelInputOutput.readLevel(levelView.getLevel().getLevelName()));
@@ -76,8 +80,8 @@ public class WinView extends StaticView {
     /**
      * Shows the winning message for the player, containing information such as score and remaining lives.
      *
-     * @param deltatime
-     * @return
+     * @param deltatime time delta since last call
+     * @return successful update
      */
     @Override
     public boolean update(int deltatime) {

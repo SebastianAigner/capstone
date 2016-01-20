@@ -12,13 +12,13 @@ import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 import java.io.IOException;
 
 public class Main {
-    static String startLevel = "level_big_sparse.properties";
+    private static String startLevel = "level_big_sparse.properties";
 
     /**
      * Starts the game. Sets up timekeeping devices, a new Swing Terminal, sets the properties required, generates a new
      * View Manager instance, and starts the main game loop.
      *
-     * @param args
+     * @param args commandline arguments (will be ignored)
      */
     public static void main(String[] args) {
         DeltaTimeHelper dt = new DeltaTimeHelper(); //used to keep track of time between refreshes
@@ -38,6 +38,7 @@ public class Main {
             ex.printStackTrace();
             System.exit(1);
             //Failure to load the level results in ending the program
+            //It shows the user the path at which files are expected, which can be helpful when self-compiling.
         }
         //add the levelView to the viewManager's stack
         viewManager.push(levelView);

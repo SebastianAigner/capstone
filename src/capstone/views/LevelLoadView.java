@@ -30,9 +30,9 @@ public class LevelLoadView extends View {
     /**
      * Generates a new view with the given parameters.
      *
-     * @param s      Lanterna Screen that is supposed to be used.
-     * @param width  Width of the View in Characters
-     * @param height Height of the View in Characters
+     * @param s         Lanterna Screen that is supposed to be used.
+     * @param width     Width of the View in Characters
+     * @param height    Height of the View in Characters
      * @param levelView levelView to which to write the newly loaded level
      */
     public LevelLoadView(Screen s, int width, int height, LevelView levelView) {
@@ -70,7 +70,8 @@ public class LevelLoadView extends View {
     /**
      * Updates the view based on the passed time. Will draw the characters of the typed filename and intelligently
      * add or remove new characters to the screen.
-     * @param deltatime
+     *
+     * @param deltatime time delta since last call
      * @return successful screen update
      */
     @Override
@@ -109,23 +110,12 @@ public class LevelLoadView extends View {
         statusLineDrawn = false;
     }
 
-
-    @Override
-    public boolean requestsViewStackRemoval() {
-        return viewStackRemoval;
-    }
-
     @Override
     public void managementUpdate() {
 
     }
 
-    @Override
-    public void resetViewStackAddition() {
-
-    }
-
-    public void loadLevel() {
+    private void loadLevel() {
         try {
             this.levelView.setLevel(LevelInputOutput.readLevel(filename));
             this.viewStackRemoval = true;

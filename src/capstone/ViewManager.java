@@ -52,8 +52,8 @@ public class ViewManager {
      * Keep in mind that this method does not clear the screen even when pushing and popping views from the stack to
      * ensure the possibility of expansion lateron (e.g. smaller windows on top of backgrounds.)
      *
-     * @param deltatime
-     * @return
+     * @param deltatime time delta since last call
+     * @return successful update
      */
     public boolean update(int deltatime) {
 

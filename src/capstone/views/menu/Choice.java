@@ -36,7 +36,7 @@ class Choice {
     /**
      * Gets the trigger that will be executed upon calling the trigger method.
      *
-     * @return
+     * @return trigger that will be executed
      */
     public NotificationMessage getTrigger() {
         return trigger;
@@ -54,7 +54,7 @@ class Choice {
     /**
      * Sets the trigger that will be executed when calling the trigger method.
      *
-     * @param trigger
+     * @param trigger trigger to be set that will be executed
      */
     public void setTrigger(NotificationMessage trigger) {
         this.trigger = trigger;

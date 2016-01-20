@@ -1,6 +1,5 @@
 package capstone.gameobject.staticObjects;
 
-import capstone.DeltaTimeHelper;
 import capstone.gameobject.dynamicObjects.PlayerGameObject;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -13,7 +12,6 @@ public class ExitGameObject extends StaticGameObject {
      * Creates a new exit game object. An exit is player walkable, but not computer walkable (to prevent objective
      * camping).
      */
-    private DeltaTimeHelper deltaTimeHelper;
 
     public ExitGameObject() {
         this.foregroundColor = Terminal.Color.GREEN;
@@ -22,7 +20,6 @@ public class ExitGameObject extends StaticGameObject {
         this.entityName = "Exit";
         this.computerWalkable = false;
         this.playerWalkable = true;
-        this.deltaTimeHelper = new DeltaTimeHelper();
     }
 
     @Override

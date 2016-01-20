@@ -18,6 +18,7 @@ public abstract class StaticGameObject extends GameObject {
 
     /**
      * Whether AI should collide or be allowed to pass onto this object.
+     *
      * @return Whether an object is walkable by the AI.
      */
     public boolean isComputerWalkable() {

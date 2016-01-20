@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+
 /**
  * The Level IO class provides static methods for saving and reading levels in the format that is outlined by the
  * capstone documentation.
@@ -79,6 +80,7 @@ public class LevelInputOutput {
             int playerScore = Integer.parseInt(prop.getProperty("playerScore"));
             boolean playerHasKey = Boolean.parseBoolean(prop.getProperty("playerHaskey"));
             level.setPlayer(new PlayerGameObject(playerX, playerY, playerLives, level, playerHasKey));
+            level.getPlayer().setScore(playerScore);
             NotificationCenter.postNotification(NotificationMessage.SAVE_LOAD_SUCCESS);
         } else {
             NotificationCenter.postNotification(NotificationMessage.LEVEL_LOAD_SUCCESS);
@@ -135,6 +137,10 @@ public class LevelInputOutput {
         File currentDirectory = new File(".");
         ArrayList<String> names = new ArrayList<>();
         File[] filesList = currentDirectory.listFiles();
+        if (filesList == null) {
+            names.add("Folder could not be read.");
+            return names;
+        }
         for (File f : filesList) {
             if (f.isFile() && f.getName().contains(".properties")) {
                 names.add(f.getName());

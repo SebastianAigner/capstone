@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 /**
  * The notification center is a central hub within the game for status messages that concern a varying number of client
- * classes.
+ * classes. See the available NotificationMessages.
  */
 public class NotificationCenter {
-    static final ArrayList<NotificationMessage> notifications = new ArrayList<>();
+    private static final ArrayList<NotificationMessage> notifications = new ArrayList<>();
 
     /**
      * Adds a new notification to the queued Notifications
@@ -39,7 +39,7 @@ public class NotificationCenter {
      *
      * @param n notification to be removed.
      */
-    public static void removeNotifictaion(NotificationMessage n) {
+    public static void removeNotification(NotificationMessage n) {
         notifications.remove(n);
     }
 }

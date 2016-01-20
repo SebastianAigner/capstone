@@ -28,6 +28,8 @@ public class LegendView extends StaticView {
      */
     public LegendView(Screen s, int width, int height) {
         super(s, width, height);
+        //The legend view instantiates all the explained game objects to gain access to their representation and
+        //colors
         explainedGameObjects = new ArrayList<>(Arrays.asList(
                 new HealthGameObject(),
                 new KeyGameObject(),
@@ -53,8 +55,8 @@ public class LegendView extends StaticView {
      * Draws the static legend to screen (only if an update is necessary). Also intelligently wraps the description text
      * according to window width.
      *
-     * @param deltatime
-     * @return
+     * @param deltatime time delta since last call
+     * @return successful update
      */
     @Override
     public boolean update(int deltatime) {

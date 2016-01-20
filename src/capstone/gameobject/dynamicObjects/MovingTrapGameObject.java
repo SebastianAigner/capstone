@@ -10,12 +10,13 @@ import java.util.Random;
 
 public class MovingTrapGameObject extends DynamicGameObject {
     private final DeltaTimeHelper deltaTimeHelper;
-    private DeltaTimeHelper damageDeltaTimeHelper;
+    private final DeltaTimeHelper damageDeltaTimeHelper;
     private final DeltaTimeHelper animationTimeHelper;
     private int animationStep = 0;
     private int playerLocationX;
     private int playerLocationY;
-    private Random random;
+    private final Random random;
+
     /**
      * Creates a new moving trap at a given X/Y-spawn position in a given level.
      *
@@ -115,10 +116,10 @@ public class MovingTrapGameObject extends DynamicGameObject {
      * but have a higher chance to move towards the player rather than away from him. However, they still move randomly
      * so they don't get stuck in corners and such.
      *
-     * @return
+     * @return chosen direction (where 0 => up, 1 => down, 2 => left, 3 => right)
      */
     private int chooseDirection() {
-        int direction = 0;
+        int direction;
         int playerDeltaX = x - playerLocationX;
         int playerDeltaY = y - playerLocationY;
         if (Math.abs(playerDeltaX) > Math.abs(playerDeltaY)) {

@@ -28,10 +28,10 @@ public class MenuView extends View {
     private Terminal.Color textColorForeground = Terminal.Color.WHITE;
     private Terminal.Color textColorBackground = Terminal.Color.DEFAULT;
     private LevelView levelView;
-    private String statusLine = "";
+    private String statusLine = ""; // holds information about the result of the last action in human readable form
     private boolean statusLineDrawn = false;
     private int choiceListEndPosition = 0;
-    private ArrayList<Choice> choices = new ArrayList<>(Arrays.asList(
+    private final ArrayList<Choice> choices = new ArrayList<>(Arrays.asList(
             new Choice("Legend", NotificationMessage.LEGEND),
             new Choice("Save Current Game", NotificationMessage.SAVE_SAVE),
             new Choice("Load Save File", NotificationMessage.SAVE_LOAD),
@@ -44,13 +44,13 @@ public class MenuView extends View {
     /**
      * Creates a new Menu View that allows the user to select different choices.
      *
-     * @param s         Lanterna screen to be drawn on
+     * @param screen    Lanterna screen to be drawn on
      * @param width     width of the view
      * @param height    height of the view
      * @param levelView LevelView that is currently loaded
      */
-    public MenuView(Screen s, int width, int height, LevelView levelView) {
-        super(s, width, height);
+    public MenuView(Screen screen, int width, int height, LevelView levelView) {
+        super(screen, width, height);
         this.levelView = levelView;
         this.level = levelView.getLevel();
         if (level != null) {
@@ -108,8 +108,8 @@ public class MenuView extends View {
     /**
      * Redraws the menu upon change.
      *
-     * @param deltatime
-     * @return
+     * @param deltatime time delta since last call
+     * @return successful update
      */
     @Override
     public boolean update(int deltatime) {
@@ -143,7 +143,7 @@ public class MenuView extends View {
 
     /**
      * Checks for different tasks such as continuing the game, saving a game, quitting the game and creating subviews
-     * such as legends.
+     * such as legends (which can happen independently of the current position in the viewstack).
      */
     @Override
     public void managementUpdate() {
@@ -154,35 +154,36 @@ public class MenuView extends View {
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.SAVE_SAVE)) {
             saveCurrentLevel();
-            NotificationCenter.removeNotifictaion(NotificationMessage.SAVE_SAVE);
+            NotificationCenter.removeNotification(NotificationMessage.SAVE_SAVE);
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.SAVE_QUIT)) {
             saveCurrentLevel();
-            NotificationCenter.removeNotifictaion(NotificationMessage.SAVE_QUIT);
+            NotificationCenter.removeNotification(NotificationMessage.SAVE_QUIT);
             NotificationCenter.postNotification(NotificationMessage.QUIT);
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.LEGEND)) {
-            NotificationCenter.removeNotifictaion(NotificationMessage.LEGEND);
+            NotificationCenter.removeNotification(NotificationMessage.LEGEND);
             this.viewStackAddition = new LegendView(screen, width, height);
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.SAVE_LOAD_SUCCESS)) {
-            NotificationCenter.removeNotifictaion(NotificationMessage.SAVE_LOAD_SUCCESS);
+            NotificationCenter.removeNotification(NotificationMessage.SAVE_LOAD_SUCCESS);
             NotificationCenter.postNotification(NotificationMessage.CONTINUE);
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.LEVEL_LOAD_BY_NAME)) {
-            NotificationCenter.removeNotifictaion(NotificationMessage.LEVEL_LOAD_BY_NAME);
+            NotificationCenter.removeNotification(NotificationMessage.LEVEL_LOAD_BY_NAME);
             this.viewStackAddition = new LevelLoadView(screen, width, height, levelView);
         }
         if (NotificationCenter.checkForNotification(NotificationMessage.SAVE_SAVE_SUCCESS)) {
             this.statusLineDrawn = false;
             this.statusLine = "Successfully saved file to save.properties.";
-            NotificationCenter.removeNotifictaion(NotificationMessage.SAVE_SAVE_SUCCESS);
+            NotificationCenter.removeNotification(NotificationMessage.SAVE_SAVE_SUCCESS);
         }
 
     }
 
     /**
-     * Saves the current level to a file called "save.properties".
+     * Saves the current level to a file called "save.properties". The save-file is compatible to other level-files,
+     * but has been given a distinct name to prevent overwriting of the original file.
      */
     private void saveCurrentLevel() {
         try {

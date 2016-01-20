@@ -62,8 +62,8 @@ public class LoseView extends StaticView {
     /**
      * Draws a "You Lose" message on the screen. Only redraws when necessary.
      *
-     * @param deltatime
-     * @return
+     * @param deltatime time delta since last call
+     * @return successful update
      */
     @Override
     public boolean update(int deltatime) {

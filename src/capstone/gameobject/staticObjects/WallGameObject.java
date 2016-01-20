@@ -5,7 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 /**
  * A wall game object provides the boundaries of the level as well as a non-lethal obstacle for the player and dynamic
- * enemeies.
+ * enemies.
  */
 public class WallGameObject extends StaticGameObject {
 
@@ -22,10 +22,11 @@ public class WallGameObject extends StaticGameObject {
         this.entityName = "Wall";
     }
 
+
     /**
      * A wall does not modify the player
      *
-     * @param playerGameObject
+     * @param playerGameObject player game object (will not be modified)
      */
     @Override
     public void modifyPlayer(PlayerGameObject playerGameObject) {

@@ -4,7 +4,7 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
 
 public abstract class View {
-    protected Screen screen;
+    protected final Screen screen;
     protected int width;
     protected int height;
     protected View viewStackAddition;
@@ -33,7 +33,8 @@ public abstract class View {
 
     /**
      * The view will update in relation to the given time passed since the last call
-     * @param deltatime time passed sincel last call
+     *
+     * @param deltatime time passed since last call
      * @return successful update
      */
     public abstract boolean update(int deltatime);

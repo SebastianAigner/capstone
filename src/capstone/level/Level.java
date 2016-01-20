@@ -11,13 +11,13 @@ import java.util.ArrayList;
 /**
  * The level class represents all game objects and the attached logic that is required in order to play the game.
  * A few words about the memory architecture:
- *
+ * <p>
  * Static Game Objects are held in a 2D array. They do not know their own coordinates, and they do not need to, since
  * they will never move. They also do not need to be updated periodically. Because they have fixed positions, they make
  * for great collision detection (the collision of a dynamic element with the surrounding static elements can be done
  * within fixed time, whilst if I would not split them into dynamic and static game objects, you would have to compare
  * every object to each other, which is very calculation intensive.
- *
+ * <p>
  * Dynamic Game Object are held in an arraylist. They know their own coordinates, and they are naturally drawn on top of
  * any static game objects (e.g. a player on top of a spike or a key). Since they are updated regularly, I chose this
  * memory format because it ensures I only iterate over the necessary items.
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class Level {
     private PlayerGameObject player;
     private StaticGameObject[][] staticGameObjects;
-    private ArrayList<DynamicGameObject> dynamicGameObjects;
+    private final ArrayList<DynamicGameObject> dynamicGameObjects;
     private int levelWidth;
     private int levelHeight;
     private String levelName;
@@ -48,8 +48,8 @@ public class Level {
     /**
      * Generates a player game object at a given position.
      *
-     * @param x
-     * @param y
+     * @param x x coordinate of the player spawn
+     * @param y y coordinate of the player spawn
      */
     public void generatePlayerAtPosition(int x, int y) {
         if (!(x >= 0 && x < levelWidth)) {
@@ -99,10 +99,10 @@ public class Level {
      * Processes the keystroke from the player. Since for this level, the only thing controlled by the player is
      * the character, it will forward the keystrokes to the underlying player object.
      *
-     * @param key
+     * @param keystroke Pressed Key Event
      */
-    public void processKeystroke(Key key) {
-        player.processKeystroke(key);
+    public void processKeystroke(Key keystroke) {
+        player.processKeystroke(keystroke);
     }
 
     /**
@@ -135,11 +135,11 @@ public class Level {
         GameObject[][] frame = new GameObject[width][height];
         //Creates a new 2D array with the correct size and fills it with the elements. accordingly.
         for (int x = xOffset; x < xOffset + width; ++x) {
-                try {
-                    System.arraycopy(staticGameObjects[x], yOffset, frame[x - xOffset], 0, yOffset + height - yOffset);
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    System.out.println("An illegal frame was requested.");
-                }
+            try {
+                System.arraycopy(staticGameObjects[x], yOffset, frame[x - xOffset], 0, yOffset + height - yOffset);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("An illegal frame was requested.");
+            }
         }
         return frame;
     }
@@ -168,7 +168,7 @@ public class Level {
      * @param deltatime time passed since last call
      */
 
-    public void updateDynamicObjects(int deltatime) {
+    private void updateDynamicObjects(int deltatime) {
         ArrayList<DynamicGameObject> workingCopy = new ArrayList<>(dynamicGameObjects);
         for (DynamicGameObject d : workingCopy) {
             d.update(deltatime);
@@ -177,7 +177,8 @@ public class Level {
 
     /**
      * Removes a dynamic game object from the arraylist.
-     * @param dynamicGameObject
+     *
+     * @param dynamicGameObject dynamic game object to be removed
      */
     public void removeDynamicGameObject(DynamicGameObject dynamicGameObject) {
         dynamicGameObjects.remove(dynamicGameObject);
@@ -185,6 +186,7 @@ public class Level {
 
     /**
      * Remove a static game object from the 2D array.
+     *
      * @param x x coordinate of the static game object to be removed
      * @param y y coordinate of the static game object to be removed
      */

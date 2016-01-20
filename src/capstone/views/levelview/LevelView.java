@@ -95,14 +95,14 @@ public class LevelView extends View {
     /**
      * Updates the current view based on the time passed in between.
      *
-     * @param deltaTime
-     * @return
+     * @param deltaTime time delta since last call
+     * @return successful update
      */
     @Override
     public boolean update(int deltaTime) {
         //Check whether the game was just unpaused
         if (NotificationCenter.checkForNotification(NotificationMessage.CONTINUE)) {
-            NotificationCenter.removeNotifictaion(NotificationMessage.CONTINUE);
+            NotificationCenter.removeNotification(NotificationMessage.CONTINUE);
             screen.clear();
             level.getPlayer().setPaused(false);
             this.processResize();
@@ -248,7 +248,7 @@ public class LevelView extends View {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            NotificationCenter.removeNotifictaion(NotificationMessage.SAVE_LOAD);
+            NotificationCenter.removeNotification(NotificationMessage.SAVE_LOAD);
         }
     }
 

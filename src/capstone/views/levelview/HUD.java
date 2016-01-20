@@ -12,11 +12,11 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 public class HUD {
     private final Screen screen;
-    private PlayerGameObject player;
-    private int xOffset, yOffset;
-    private int width, height;
+    private final PlayerGameObject player;
+    private final int xOffset, yOffset;
+    private final int width, height;
 
-    private DeltaTimeHelper deltaTimeHelper;
+    private final DeltaTimeHelper deltaTimeHelper;
     private boolean needsUpdate;
 
     //Keep track of the player information displayed for efficient rendering.
@@ -29,21 +29,21 @@ public class HUD {
     //Configuration for the HUD display.
 
     //Display Lives / Hearts
-    private int heartsXOffset = 0;
-    private int heartsYOffset = 0;
+    private final int heartsXOffset = 0;
+    private final int heartsYOffset = 0;
     private Terminal.Color heartsColor = Terminal.Color.RED;
     private Terminal.Color heartsBackgroundColor = Terminal.Color.DEFAULT;
     private String heartsRepresentation = "♥";
 
     //Display whether the player has collected a key
-    private int hasKeyXOffset = 0;
-    private int hasKeyYOffset = 1;
+    private final int hasKeyXOffset = 0;
+    private final int hasKeyYOffset = 1;
     private Terminal.Color hasKeyColor = Terminal.Color.YELLOW;
     private Terminal.Color hasKeyBackgroundColor = Terminal.Color.DEFAULT;
 
     //Display the player score
-    private int scoreXOffset = 15;
-    private int scoreYOffset = 1;
+    private final int scoreXOffset = 15;
+    private final int scoreYOffset = 1;
     private Terminal.Color scoreColor = Terminal.Color.GREEN;
     private Terminal.Color scoreBackgroundColor = Terminal.Color.DEFAULT;
 
@@ -90,9 +90,9 @@ public class HUD {
     }
 
     /**
-     * Makes sure the HUD gets redrawn the next tick.
+     * Set whether an update is needed next tick.
      *
-     * @param needsUpdate
+     * @param needsUpdate update needed
      */
     public void setNeedsUpdate(boolean needsUpdate) {
         this.needsUpdate = needsUpdate;
