@@ -6,7 +6,7 @@ import capstone.level.Level;
 import capstone.level.LevelHelper;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * A bullet (or ingame: Shuriken) is a projectile that flies across the level until it hits either a player collider
@@ -121,11 +121,12 @@ public class BulletGameObject extends DynamicGameObject {
                 y = -1;
                 this.needsUpdate = true;
             }
-            ArrayList<DynamicGameObject> dynamicGameObjects = new ArrayList<>(level.getDynamicGameObjects());
-            for (DynamicGameObject d : dynamicGameObjects) {
+
+            Iterator<DynamicGameObject> dynamicGameObjectIterator = level.getDynamicGameObjects().iterator();
+            while (dynamicGameObjectIterator.hasNext()) {
+                DynamicGameObject d = dynamicGameObjectIterator.next();
                 if (d.isDestroyable() && d.getX() == x && d.getY() == y) {
-                    //destroy the hit destroyable object
-                    level.removeDynamicGameObject(d);
+                    dynamicGameObjectIterator.remove();
                     hasHitEnemy = true;
                     collided = true;
                 }
