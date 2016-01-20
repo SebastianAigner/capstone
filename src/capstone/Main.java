@@ -59,7 +59,7 @@ public class Main {
                 screen.refresh();
             } catch (ArrayIndexOutOfBoundsException e) {
                 //this just means that a character was written outside the possible screen. It is discarded and not handled
-                // because this is a common occurrence when changing the terminal's size.
+                // because this is a common occurrence when changing the terminal's size by dragging its corner around
             }
         }
         screen.stopScreen();
