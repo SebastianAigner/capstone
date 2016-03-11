@@ -69,14 +69,15 @@ public class HUD {
     }
 
     /**
-     * Flushes the display for the lives / hearts.
+     * Flushes the display for the lives / hearts. This is done simply by overwriting only the display characters.
      */
     private void flushHearts() {
         screen.putString(xOffset + heartsXOffset, yOffset + heartsYOffset, "                    ", Terminal.Color.DEFAULT, Terminal.Color.DEFAULT);
     }
 
     /**
-     * Flushes the display that indicates whether the player has already picked up a key
+     * Flushes the display that indicates whether the player has already picked up a key.
+     * This is done simply by overwriting only the display characters.
      */
     private void flushKey() {
         screen.putString(xOffset + hasKeyXOffset, yOffset + hasKeyYOffset, "        ", hasKeyColor, hasKeyBackgroundColor);
@@ -84,6 +85,7 @@ public class HUD {
 
     /**
      * Flushes the part of the display that is used to show the score.
+     * This is done simply by overwriting only the display characters.
      */
     private void flushScore() {
         screen.putString(xOffset + scoreXOffset, yOffset + scoreYOffset, "                             ", scoreColor, scoreBackgroundColor);
