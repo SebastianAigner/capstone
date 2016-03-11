@@ -108,8 +108,8 @@ public class LevelInputOutput {
         prop.setProperty("Height", Integer.toString(staticGameObjects.length));
         prop.setProperty("Width", Integer.toString(staticGameObjects[0].length));
 
-        for (int x = 0; x < staticGameObjects.length; ++x) {
-            for (int y = 0; y < staticGameObjects[0].length; ++y) {
+        for (int y = 0; y < staticGameObjects[0].length; ++y) {
+            for (int x = 0; x < staticGameObjects.length; ++x) {
                 //we assume they are always rectangles.
                 StaticGameObject s = staticGameObjects[x][y];
                 String representation = SaveFileHelper.getSavegameCharacterRepresentation(s);

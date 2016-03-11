@@ -175,8 +175,8 @@ public class LevelView extends View {
         // if necessary, print static objects to the screen.
         if (!hasPrintedStatics) {
             GameObject[][] staticsForFrame = level.requestStaticObjectsForFrame(xOffset, yOffset, width, height);
-            for (int x = 0; x < staticsForFrame.length; ++x) {
-                for (int y = 0; y < staticsForFrame[0].length; ++y) {
+            for (int y = 0; y < staticsForFrame[0].length; ++y) {
+                for (int x = 0; x < staticsForFrame.length; ++x) {
                     GameObject g = staticsForFrame[x][y];
                     if (g != null) {
                         screen.putString(x, y, Character.toString(g.getRepresentation()), g.getForegroundColor(), g.getBackgroundColor());
